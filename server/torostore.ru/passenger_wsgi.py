@@ -2,7 +2,7 @@ import sys
 import os
 from datetime import datetime, timedelta
 
-basedir = '/home/s/snbld/torostore.ru/app'
+basedir = 'PATH_TO_APP'
 sys.path.insert(0, basedir)
 os.chdir(basedir)
 
