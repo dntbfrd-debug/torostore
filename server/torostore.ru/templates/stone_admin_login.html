@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="UTF-8"><title>TORO STORE — Вход</title></head>
+<body style="background:#143D3B;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">
+<form method="POST" style="background:rgba(15,48,46,.95);padding:30px;border-radius:12px;border:1px solid rgba(209,175,84,.1)">
+<h3 style="color:var(--gold);margin-bottom:16px">TORO STORE — Вход</h3>
+{% if error %}<p style="color:#e74c3c;font-size:12px">{{ error }}</p>{% endif %}
+<input name="password" type="password" placeholder="Пароль" autocomplete="off" style="width:100%;padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.04);color:#fff;font-size:14px;outline:none;margin-bottom:12px">
+<button style="width:100%;padding:10px;background:#b93a2d;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px">Войти</button>
+</form></body></html>

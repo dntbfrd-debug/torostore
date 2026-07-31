@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /stone/
+Disallow: /stone/admin/
+Disallow: /stone/webapp
+Disallow: /stone/api/
+Sitemap: https://torostore.ru/sitemap.xml

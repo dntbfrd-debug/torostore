@@ -1,0 +1,102 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+venv/
+
+# Database
+*.db
+*.sqlite3
+
+# Environment & secrets
+.env
+*.htaccess
+
+# Logs
+*.log
+*.log.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp files
+tmp/
+*.tmp
+*.bak
+*.orig
+
+# Dev tools
+.opencode/
+.playwright-mcp/
+node_modules/
+
+# Personal
+memory/
+main/
+*.json
+!server/torostore.ru/app/requirements.txt
+check_*.py
+mouse_*.py
+*.iss
+*.spec
+*.bat
+*.ps1
+
+# Build
+dist/
+build/
+*.onefile-build/
+
+# Screenshots & media
+*.png
+*.jpg
+*.webp
+!server/torostore.ru/app/static/favicon.*
+
+# Server backups (keep only app code)
+server/torostore.ru/backup_*/
+server/snbld.beget.tech/backup_*/
+server/SERVER_*
+server/torostore.ru/stone_catalog_*.html
+server/add_drop_*.py
+server/check_*.py
+server/create_*.py
+server/fix_*.py
+server/migrate_*.py
+server/test_*.py
+server/diff_*.txt
+server/htaccess_tmp.txt
+server/*).txt
+server/torostore.ru/stone_catalog_current.html
+
+# Root temp files
+chk_pwd.py
+create_indexes.py
+create_tc.py
+fix_final.py
+fix_routes.py
+fix_sub_msg.py
+fix_sub_msg2.py
+fix_v3.py
+migrate_defects.py
+optimize_images.py
+test_webhook.py
+mobile-snapshot.txt
+torostore.tar.gz
+/stone_catalog.html
+snbld-twitch-theme.css
+snbld-youtube-font.css
+menu_print_A4.html
+*.xlsx
+
+# Docs
+docs/
+AGENTS.md
+ANALYSIS_REPORT.md

@@ -1,0 +1,10 @@
+# Flask и расширения
+Flask==3.0.0
+Flask-SQLAlchemy==3.1.1
+Flask-CORS==4.0.0
+
+# Утилиты
+python-dotenv==1.0.0
+
+# Для запросов
+requests==2.31.0

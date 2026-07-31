@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Дашборд сотрудников — вход</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text y=%2228%22 font-size=%2228%22>🍃</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --accent: #4ade80;
+            --accent-blue: #60a5fa;
+            --card-border: rgba(255,255,255,0.10);
+            --text-primary: #eee;
+            --text-secondary: #999;
+            --text-muted: #666;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --bg-body: #1a1a1a;
+            --text-on-accent: #111;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --shadow-card: 0 4px 24px rgba(0,0,0,0.3);
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            display:flex;align-items:center;justify-content:center;
+            padding:16px;
+            background:#1a1a1a;
+            background-image:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),url('/api/dashboard/bg');
+            background-size:cover;background-position:center;
+            font-family:'Nunito',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+            color:var(--text-primary);font-size:16px;line-height:1.5;
+            opacity:0;transition:opacity .35s;
+        }
+        body.visible{opacity:1}
+
+        .card{
+            background:rgba(0,0,0,.35);
+            border:1px solid var(--card-border);
+            border-radius:var(--radius-lg);padding:32px 24px;
+            max-width:400px;width:100%;
+            position:relative;overflow:hidden;
+            backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+            box-shadow:var(--shadow-card);
+        }
+        .card::before{
+            content:'';position:absolute;inset:0;border-radius:var(--radius-lg);
+            background:linear-gradient(to bottom,rgba(0,0,0,.35),rgba(0,0,0,.15) 40%,transparent);
+            pointer-events:none;z-index:0;
+        }
+        .card>*{position:relative;z-index:1}
+        .card-logo{
+            text-align:center;margin-bottom:16px;
+        }
+        .card-logo img{
+            width:56px;height:56px;border-radius:50%;object-fit:cover;
+            border:2px solid rgba(74,222,128,0.3);
+            box-shadow:0 0 16px rgba(74,222,128,0.15);
+        }
+        .card h1{
+            font-size:1.2rem;text-align:center;margin-bottom:4px;
+            color:var(--text-primary);font-weight:700;
+        }
+        .card p.sub{
+            text-align:center;color:var(--text-secondary);font-size:.8rem;
+            margin-bottom:20px;
+        }
+        .tabs{
+            display:flex;gap:0;margin-bottom:18px;
+            border-radius:var(--radius-md);overflow:hidden;
+            border:1px solid var(--card-border);
+        }
+        .tabs button{
+            flex:1;padding:11px;background:transparent;border:none;
+            color:var(--text-secondary);font-size:.85rem;
+            cursor:pointer;transition:all .2s;font-family:inherit;font-weight:500;
+        }
+        .tabs button.active{
+            background:var(--accent);color:#111;font-weight:600;
+        }
+        .card label{
+            display:block;color:var(--text-secondary);
+            font-size:.75rem;margin-bottom:4px;margin-top:12px;font-weight:500;
+        }
+        .input-wrap{position:relative}
+        .card input{
+            width:100%;padding:12px 14px;
+            background:rgba(255,255,255,.05);
+            border:1px solid var(--card-border);
+            border-radius:var(--radius-md);color:var(--text-primary);
+            font-size:.9rem;outline:none;font-family:inherit;
+            transition:border-color .2s;
+        }
+        .card input:focus{border-color:var(--accent)}
+        .card input::placeholder{color:#666}
+        .pw-toggle{
+            position:absolute;right:10px;top:50%;transform:translateY(-50%);
+            background:none;border:none;color:var(--text-muted);
+            cursor:pointer;font-size:.85rem;padding:4px;
+            transition:color .2s;
+        }
+        .pw-toggle:hover{color:var(--accent)}
+        .pw-strength{
+            height:3px;border-radius:2px;margin-top:6px;
+            background:rgba(255,255,255,0.06);overflow:hidden;
+            transition:opacity .3s;
+        }
+        .pw-strength-bar{
+            height:100%;border-radius:2px;width:0;
+            transition:width .3s,background .3s;
+        }
+        .pw-strength-text{
+            font-size:.65rem;color:var(--text-muted);margin-top:3px;
+            min-height:14px;
+        }
+        .card button.primary{
+            width:100%;margin-top:20px;padding:13px;
+            background:var(--accent);border:none;
+            border-radius:var(--radius-md);color:#111;
+            font-size:.9rem;font-weight:600;font-family:inherit;
+            cursor:pointer;transition:filter .2s,transform .1s;
+            min-height:48px;
+        }
+        .card button.primary:hover{filter:brightness(1.1)}
+        .card button.primary:active{transform:scale(0.98)}
+        .card button.primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
+        .error-msg{color:var(--danger);font-size:.8rem;margin-top:10px;text-align:center}
+        .success-msg{color:var(--success);font-size:.8rem;margin-top:10px;text-align:center}
+        .hidden{display:none}
+
+        @media(min-width:1024px){
+            body{font-size:18px}
+            .card{max-width:440px;padding:40px 32px;border-radius:var(--radius-lg)}
+            .card h1{font-size:1.4rem}
+            .card p.sub{font-size:.85rem}
+            .tabs button{font-size:.9rem;padding:13px}
+            .card label{font-size:.8rem}
+            .card input{font-size:.95rem;padding:14px 16px}
+            .card button.primary{font-size:1rem;padding:15px}
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-logo">
+            <img src="/static/logo.png" alt="SNBLD Logo" onerror="this.style.display='none'">
+        </div>
+        <h1>Дашборд работника</h1>
+        <p class="sub">SNBLD — вход / регистрация</p>
+
+        <div class="tabs" role="tablist">
+            <button id="tabLogin" class="active" role="tab" aria-selected="true" onclick="switchTab('login')">Вход</button>
+            <button id="tabRegister" role="tab" aria-selected="false" onclick="switchTab('register')">Регистрация</button>
+        </div>
+
+        <div id="formLogin">
+            <label for="login">Логин</label>
+            <input type="text" id="login" placeholder="Ваш логин" autocomplete="username">
+            <label for="password">Пароль</label>
+            <div class="input-wrap">
+                <input type="password" id="password" placeholder="Пароль" autocomplete="current-password">
+                <button type="button" class="pw-toggle" onclick="togglePw('password',this)" aria-label="Показать пароль"><i class="fas fa-eye"></i></button>
+            </div>
+            <button class="primary" id="loginBtn" onclick="doLogin()">Войти</button>
+            <div class="error-msg hidden" id="loginError"></div>
+        </div>
+
+        <div id="formRegister" class="hidden">
+            <label for="regLogin">Ваше имя (логин)</label>
+            <input type="text" id="regLogin" placeholder="Например: Артем" autocomplete="username">
+            <label for="regPassword">Пароль</label>
+            <div class="input-wrap">
+                <input type="password" id="regPassword" placeholder="Придумайте пароль" autocomplete="new-password" oninput="checkPwStrength(this.value)">
+                <button type="button" class="pw-toggle" onclick="togglePw('regPassword',this)" aria-label="Показать пароль"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="pw-strength"><div class="pw-strength-bar" id="pwStrengthBar"></div></div>
+            <div class="pw-strength-text" id="pwStrengthText"></div>
+            <button class="primary" id="registerBtn" onclick="doRegister()">Зарегистрироваться</button>
+            <div class="error-msg hidden" id="registerError"></div>
+            <div class="success-msg hidden" id="registerSuccess"></div>
+        </div>
+    </div>
+
+    <script>
+    document.body.classList.add('visible');
+
+    function switchTab(tab) {
+        document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+        document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
+        document.getElementById('tabLogin').setAttribute('aria-selected', tab === 'login');
+        document.getElementById('tabRegister').setAttribute('aria-selected', tab === 'register');
+        document.getElementById('formLogin').classList.toggle('hidden', tab !== 'login');
+        document.getElementById('formRegister').classList.toggle('hidden', tab !== 'register');
+        document.getElementById('loginError').classList.add('hidden');
+        document.getElementById('registerError').classList.add('hidden');
+        document.getElementById('registerSuccess').classList.add('hidden');
+    }
+
+    function togglePw(inputId, btn) {
+        var inp = document.getElementById(inputId);
+        var icon = btn.querySelector('i');
+        if (inp.type === 'password') {
+            inp.type = 'text';
+            icon.className = 'fas fa-eye-slash';
+        } else {
+            inp.type = 'password';
+            icon.className = 'fas fa-eye';
+        }
+    }
+
+    function checkPwStrength(val) {
+        var bar = document.getElementById('pwStrengthBar');
+        var txt = document.getElementById('pwStrengthText');
+        if (!val) { bar.style.width = '0'; txt.textContent = ''; return; }
+        var score = 0;
+        if (val.length >= 3) score++;
+        if (val.length >= 6) score++;
+        if (/[A-ZА-Я]/.test(val) && /[a-zа-я]/.test(val)) score++;
+        if (/\d/.test(val)) score++;
+        if (/[^A-Za-zА-Яа-я0-9]/.test(val)) score++;
+        var levels = [
+            {w:'20%',c:'var(--danger)',t:'Очень слабый'},
+            {w:'40%',c:'var(--danger)',t:'Слабый'},
+            {w:'60%',c:'var(--warning)',t:'Средний'},
+            {w:'80%',c:'var(--accent-blue)',t:'Хороший'},
+            {w:'100%',c:'var(--success)',t:'Надёжный'}
+        ];
+        var l = levels[Math.min(score, 4)];
+        bar.style.width = l.w;
+        bar.style.background = l.c;
+        txt.textContent = l.t;
+        txt.style.color = l.c;
+    }
+
+    function doLogin() {
+        const btn = document.getElementById('loginBtn');
+        const err = document.getElementById('loginError');
+        const login = document.getElementById('login').value.trim();
+        const password = document.getElementById('password').value;
+
+        if (!login || !password) {
+            err.textContent = 'Заполните все поля';
+            err.classList.remove('hidden');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Вход...';
+        err.classList.add('hidden');
+
+        fetch('/api/dashboard/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username: login, password: password})
+        })
+        .then(res => res.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.textContent = 'Войти';
+            if (data.success) {
+                localStorage.setItem('dashboard_token', data.token);
+                localStorage.setItem('dashboard_user', data.login);
+                window.location.href = '/dashboard';
+            } else {
+                err.textContent = data.error || 'Ошибка входа';
+                err.classList.remove('hidden');
+            }
+        })
+        .catch(() => {
+            err.textContent = 'Ошибка соединения';
+            err.classList.remove('hidden');
+            btn.disabled = false;
+            btn.textContent = 'Войти';
+        });
+    }
+
+    function doRegister() {
+        const btn = document.getElementById('registerBtn');
+        const err = document.getElementById('registerError');
+        const ok = document.getElementById('registerSuccess');
+        const login = document.getElementById('regLogin').value.trim();
+        const password = document.getElementById('regPassword').value;
+
+        if (!login || !password) {
+            err.textContent = 'Заполните все поля';
+            err.classList.remove('hidden');
+            ok.classList.add('hidden');
+            return;
+        }
+        if (password.length < 3) {
+            err.textContent = 'Пароль слишком короткий (мин. 3 символа)';
+            err.classList.remove('hidden');
+            ok.classList.add('hidden');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Регистрация...';
+        err.classList.add('hidden');
+        ok.classList.add('hidden');
+
+        fetch('/api/dashboard/register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({name: login, password: password})
+        })
+        .then(res => res.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.textContent = 'Зарегистрироваться';
+            if (data.success) {
+                ok.textContent = 'Аккаунт создан! Теперь можете войти.';
+                ok.classList.remove('hidden');
+                document.getElementById('regLogin').value = '';
+                document.getElementById('regPassword').value = '';
+                setTimeout(() => { switchTab('login'); document.getElementById('login').value = login; }, 2000);
+            } else {
+                err.textContent = data.error || 'Ошибка регистрации';
+                err.classList.remove('hidden');
+            }
+        })
+        .catch(() => {
+            err.textContent = 'Ошибка соединения';
+            err.classList.remove('hidden');
+            btn.disabled = false;
+            btn.textContent = 'Зарегистрироваться';
+        });
+    }
+
+    document.getElementById('password').addEventListener('keydown', e => {
+        if (e.key === 'Enter') doLogin();
+    });
+    document.getElementById('regPassword').addEventListener('keydown', e => {
+        if (e.key === 'Enter') doRegister();
+    });
+    </script>
+</body>
+</html>

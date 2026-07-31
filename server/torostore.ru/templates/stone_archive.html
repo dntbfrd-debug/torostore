@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архив — TORO STORE</title>
+    <link rel="icon" type="image/png" href="/stone-favicon">
+    <style>
+        @font-face{font-family:'GI Stencil-Condensed Italic';src:url('/static/gi_stencil_condensed_italic.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+        :root {
+            --bg: #1B4F4D;
+            --bg-dark: #143D3B;
+            --accent: #B93A2D;
+            --gold: #D1AF54;
+            --text: #F2E3D5;
+            --text-dim: rgba(242,227,213,0.55);
+            --text-muted: rgba(242,227,213,0.35);
+            --surface: rgba(255,255,255,0.04);
+            --radius: 6px;
+            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-heading: 'GI Stencil-Condensed Italic', Impact, 'Arial Black', sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font);color:var(--text);min-height:100vh;background:linear-gradient(217deg,var(--bg-dark) 0%,#1a4a3a 20%,#1a2a2a 40%,#232325 60%,#1a3a35 80%,var(--bg-dark) 100%);background-size:400% 400%;animation:meshMove 18s ease infinite}
+        @keyframes meshMove{0%{background-position:0% 50%}50%{background-position:80% 100%}100%{background-position:0% 50%}}
+
+        .navbar{position:sticky;top:12px;z-index:200;margin:12px 20px 0;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:72px;border-radius:14px;background:rgba(20,61,59,0.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(209,175,84,0.1);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+        .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+        .nav-logo-text{font-size:20px;letter-spacing:3px;color:var(--accent);font-family:var(--font-heading)!important}
+        .nav-logo-text span{color:var(--text);font-weight:400;font-size:12px;letter-spacing:4px;display:block;line-height:1;margin-top:2px}
+        .section{padding:60px 32px 80px;position:relative}
+        .section-header{text-align:center;margin-bottom:48px}
+        .section-header h2{font-size:13px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--text-dim)}
+        .section-header .line{width:60px;height:2px;background:var(--accent);margin:16px auto 0}
+        .section-count{font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-top:8px}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;max-width:1400px;margin:0 auto}
+
+        .card{position:relative;display:block;background:rgba(25,55,53,0.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(209,175,84,0.06);border-radius:16px;overflow:hidden;opacity:0.7}
+        .card:hover{opacity:1;border-color:rgba(209,175,84,0.15)}
+        .card-img-wrap{position:relative;margin:14px 14px 0;border-radius:12px;overflow:hidden;aspect-ratio:4/5;background:var(--bg-dark)}
+        .card-img{width:100%;height:100%;object-fit:contain;display:block;background:var(--bg-dark)}
+        .card-price-tag{position:absolute;bottom:20px;left:14px;padding:6px 14px;background:rgba(15,48,46,0.85);backdrop-filter:blur(8px);border:1px solid rgba(209,175,84,0.1);border-radius:8px;font-size:16px;font-weight:700;color:var(--gold);display:flex;align-items:baseline;gap:4px;flex-wrap:wrap}
+        .card-price-tag .old-price,.old-price{text-decoration:line-through;font-size:12px;color:var(--text-dim);font-weight:400;letter-spacing:0}
+        .discount-sticker{position:absolute;top:12px;right:48px;padding:4px 9px;background:#b91c1c;color:#fff;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:.5px;z-index:5;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,0 100%);font-family:var(--font-mono);line-height:1.3;text-align:center}
+        .discount-sticker .discount-timer{display:block;font-size:10px;font-weight:400;opacity:.85;margin-top:-1px}
+        .card-body{padding:16px 18px 18px;position:relative}
+        .card-body::before{content:'';position:absolute;top:0;left:18px;right:18px;height:1px;background:linear-gradient(90deg,transparent,rgba(209,175,84,0.08),transparent)}
+        .card-title{font-size:15px;color:var(--text);margin-bottom:6px;font-family:var(--font-heading)!important}
+        .card-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+        .meta-tag{padding:3px 10px;border-radius:var(--radius);font-size:10px;letter-spacing:1px;text-transform:uppercase;background:var(--surface);color:var(--text-dim);border:1px solid rgba(255,255,255,0.04)}
+        .meta-tag.art{color:var(--gold);border-color:rgba(209,175,84,0.1)}
+        .no-img{aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;background:var(--bg-dark);color:var(--text-muted);font-size:11px;letter-spacing:2px}
+
+        .sold-badge{position:absolute;top:12px;right:12px;padding:4px 12px;background:var(--accent);color:#fff;border-radius:6px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;z-index:5}
+
+        .back-link{color:var(--gold);text-decoration:none;font-size:14px;padding:8px 0;display:inline-block}
+        .back-link:hover{color:var(--text)}
+
+        .admin-bar{display:none;justify-content:space-between;align-items:center;margin:12px 20px 0;padding:12px 24px;border-radius:14px;background:linear-gradient(145deg,rgba(25,55,53,0.7),rgba(18,42,40,0.8));border:1px solid rgba(209,175,84,0.08);box-shadow:0 4px 24px rgba(0,0,0,0.25);flex-wrap:wrap;gap:8px}
+        .admin-bar.show{display:flex}
+        .admin-bar span{color:var(--text-dim);font-size:12px;letter-spacing:2px;font-weight:600;text-transform:uppercase}
+        .admin-btn{padding:8px 18px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);cursor:pointer;font-size:10px;font-weight:600;letter-spacing:1.5px;text-decoration:none;transition:all .2s;text-transform:uppercase;background:rgba(255,255,255,0.04);color:var(--text-dim)}
+        .admin-btn:hover{background:rgba(255,255,255,0.08);color:var(--text);border-color:rgba(255,255,255,0.15)}
+        .admin-btn-add{background:rgba(209,175,84,0.08);color:var(--gold);border-color:rgba(209,175,84,0.15)}
+        .admin-btn-add:hover{background:rgba(209,175,84,0.15);color:var(--gold)}
+
+        @media(max-width:768px){
+            .grid{grid-template-columns:1fr;gap:12px}
+            .section{padding:30px 16px 60px}
+            .navbar{padding:0 12px}
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/stone" class="nav-logo">
+        <img src="/brand-logo" alt="TORO" style="height:60px;width:auto;margin:-6px 0">
+        <span class="nav-logo-text">TORO<span>STORE</span></span>
+    </a>
+    <a href="/stone" class="back-link">← В каталог</a>
+</nav>
+
+<div class="admin-bar" id="adminBar">
+    <span>АДМИН-ПАНЕЛЬ</span>
+    <div style="display:flex;gap:8px">
+        <a href="/stone" class="admin-btn admin-btn-add">КАТАЛОГ</a>
+    </div>
+</div>
+
+<section class="section">
+    <div class="section-header">
+        <h2>Архив — Проданные товары</h2>
+        <div class="line"></div>
+        <div class="section-count">{{ products|length }} ТОВАРОВ</div>
+    </div>
+    <div class="grid">
+        {% for p in products %}
+        {% set imgs = p.images_list %}
+        <div class="card" id="card-{{ p.avito_id }}">
+            {% if imgs and imgs|length > 0 %}
+            <div class="card-img-wrap">
+                <img class="card-img" src="{{ imgs[0] }}" alt="{{ p.title }}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=no-img>NO PHOTO</div>'">
+                <div class="card-price-tag">{% if p.old_price and p.old_price > p.price %}<span class="old-price">{{ p.old_price }} ₽</span>{% endif %}{{ p.price_string }}</div>
+                    {% if p.old_price and p.old_price > p.price %}<div class="discount-sticker" data-discount-ends="{{ p.discount_ends_at.isoformat() if p.discount_ends_at else '' }}">-{{ ((1 - p.price / p.old_price) * 100) | round | int }}%{% if p.discount_ends_at and p.discount_ends_at > now %}<span class="discount-timer"></span>{% endif %}</div>{% endif %}
+                <div class="sold-badge">ПРОДАНО</div>
+            </div>
+            {% else %}
+            <div class="no-img">NO PHOTO<div class="sold-badge">ПРОДАНО</div></div>
+            {% endif %}
+            <div class="card-body">
+                <div class="card-title">{{ p.title }}</div>
+                <div class="card-meta">
+                    {% if p.color %}<span class="meta-tag">{{ p.color }}</span>{% endif %}
+                    {% if p.size %}<span class="meta-tag">{{ p.size }}</span>{% endif %}
+                    {% if p.season %}<span class="meta-tag">{{ p.season }}</span>{% endif %}
+                    {% if p.art %}<span class="meta-tag art">ART {{ p.art }}</span>{% endif %}
+                </div>
+                {% if is_admin and p.sold_price and p.sold_price != p.price %}
+                <div style="font-size:10px;color:var(--gold);margin-top:4px">Продано за {{ p.sold_price }} ₽ {% if p.sold_at %}<span style="color:var(--text-muted)">{{ p.sold_at }}</span>{% endif %}</div>
+                {% elif is_admin and p.sold_at %}
+                <div style="font-size:10px;color:var(--text-muted);margin-top:4px">Продано {{ p.sold_at }}</div>
+                {% endif %}
+                {% if is_admin %}
+                <div style="margin-top:12px;display:flex;gap:6px">
+                    <button class="admin-btn admin-btn-add" onclick="openEditModal('{{ p.avito_id }}')">✎ Изменить</button>
+                    <button class="admin-btn admin-btn-restore" onclick="restoreProduct('{{ p.avito_id }}')">↩ Восстановить</button>
+                    <button class="admin-btn admin-btn-del" onclick="deleteProduct('{{ p.avito_id }}')">✕ Удалить</button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- ===== EDIT MODAL ===== -->
+<div class="modal-overlay" id="editOverlay">
+    <div class="modal-glass" style="max-width:480px;max-height:95vh;overflow-y:auto;background:rgba(15,48,46,0.98);border-radius:16px" onclick="event.stopPropagation()">
+        <button class="modal-close-archive" onclick="closeEditModal()">&times;</button>
+        <div style="padding:14px 16px">
+            <h2 id="editTitle" style="font-size:10px;color:var(--text-dim);margin-bottom:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase">РЕДАКТИРОВАТЬ</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+                <div style="grid-column:1/-1"><label style="font-size:8px;color:var(--text-muted);display:block;margin-bottom:1px">Название</label><input id="eForm-title" style="width:100%;padding:7px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;background:rgba(255,255,255,0.04);color:var(--text);font-size:12px;outline:none"></div>
+                <div style="grid-column:1/-1"><label style="font-size:8px;color:var(--text-muted);display:block;margin-bottom:1px">Категория</label><select id="eForm-category" style="width:100%;padding:7px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;background:rgba(255,255,255,0.04);color:var(--text);font-size:12px;outline:none;cursor:pointer"><option value="">—</option><option value="jackets">Куртки</option><option value="hoodies">Худи</option><option value="sweaters">Свитера</option><option value="pants">Штаны</option><option value="accessories">Аксессуары</option></select></div>
+                <div><label style="font-size:8px;color:var(--text-muted);display:block;margin-bottom:1px">Цена</label><input id="eForm-price" type="number" style="width:100%;padding:7px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;background:rgba(255,255,255,0.04);color:var(--text);font-size:12px;outline:none"></div>
+                <div><label style="font-size:8px;color:var(--text-muted);display:block;margin-bottom:1px">Размер</label><input id="eForm-size" style="width:100%;padding:7px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;background:rgba(255,255,255,0.04);color:var(--text);font-size:12px;outline:none"></div>
+                <div><label style="font-size:8px;color:var(--text-muted);display:block;margin-bottom:1px">Сезон</label><input id="eForm-season" style="width:100%;padding:7px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;background:rgba(255,255,255,0.04);color:var(--text);font-size:12px;outline:none"></div>
+                <div><label style="font-size:8px;color:var(--text-muted);display:block;margin-bottom:1px">Артикул</label><input id="eForm-art" style="width:100%;padding:7px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;background:rgba(255,255,255,0.04);color:var(--text);font-size:12px;outline:none"></div>
+                <div><label style="font-size:8px;color:var(--text-muted);display:block;margin-bottom:1px">Оценка</label><select id="eForm-condition" style="width:100%;padding:7px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;background:rgba(255,255,255,0.04);color:var(--text);font-size:12px;outline:none;cursor:pointer"><option value="">—</option><option>10/10</option><option>9.5/10</option><option>9/10</option><option>8.5/10</option><option>8/10</option><option>7.5/10</option><option>7/10</option><option>6.5/10</option><option>6/10</option></select></div>
+                <div style="grid-column:1/-1"><label style="font-size:8px;color:var(--text-muted);display:block;margin-bottom:1px">Описание</label><textarea id="eForm-description" rows="3" style="width:100%;padding:7px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;background:rgba(255,255,255,0.04);color:var(--text);font-size:12px;outline:none;resize:vertical"></textarea></div>
+                <div style="grid-column:1/-1"><label style="font-size:8px;color:var(--text-muted);display:block;margin-bottom:1px">Ссылка Avito</label><input id="eForm-avito_url" style="width:100%;padding:7px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;background:rgba(255,255,255,0.04);color:var(--text);font-size:12px;outline:none"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px">
+                <button onclick="submitEditForm()" style="padding:8px 20px;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase">Сохранить</button>
+                <button onclick="closeEditModal()" style="padding:8px 16px;background:transparent;color:var(--text-dim);border:1px solid rgba(255,255,255,0.1);border-radius:6px;cursor:pointer;font-size:10px;letter-spacing:1px;text-transform:uppercase">Отмена</button>
+            </div>
+            <div id="editFormStatus" style="margin-top:8px;font-size:10px;display:none"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+.modal-overlay{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+.modal-overlay.show{opacity:1;visibility:visible}
+.modal-glass{position:relative;width:100%;background:rgba(15,48,46,0.98);border:1px solid rgba(209,175,84,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.modal-close-archive{position:absolute;top:8px;right:8px;z-index:10;width:28px;height:28px;background:rgba(10,10,8,0.75);border:1px solid rgba(242,227,213,0.12);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.modal-close-archive:hover{color:var(--accent)}
+@media(max-width:768px){.modal-overlay{align-items:flex-end}.modal-glass{border-radius:16px 16px 0 0!important;max-height:90vh!important}}
+</style>
+
+<script>
+var editingAvitoId = null;
+
+function openEditModal(avitoId) {
+    editingAvitoId = avitoId;
+    document.getElementById('editTitle').textContent = 'РЕДАКТИРОВАТЬ ' + avitoId;
+    fetch('/stone/admin/api/product/' + avitoId).then(function(r){return r.json()}).then(function(p){
+        if (p.error) { alert(p.error); return; }
+        document.getElementById('eForm-title').value = p.title || '';
+        document.getElementById('eForm-price').value = p.price || '';
+        document.getElementById('eForm-size').value = p.size || '';
+        document.getElementById('eForm-season').value = p.season || '';
+        document.getElementById('eForm-art').value = p.art || '';
+        document.getElementById('eForm-condition').value = p.condition || '';
+        document.getElementById('eForm-category').value = p.category || '';
+        document.getElementById('eForm-description').value = p.description || '';
+        document.getElementById('eForm-avito_url').value = p.avito_url || '';
+    });
+    document.getElementById('editOverlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeEditModal() {
+    document.getElementById('editOverlay').classList.remove('show');
+    document.body.style.overflow = '';
+    editingAvitoId = null;
+    document.getElementById('editFormStatus').style.display = 'none';
+}
+
+function submitEditForm() {
+    var data = {
+        avito_id: editingAvitoId || '',
+        title: document.getElementById('eForm-title').value.trim(),
+        price: parseInt(document.getElementById('eForm-price').value) || 0,
+        size: document.getElementById('eForm-size').value.trim(),
+        season: document.getElementById('eForm-season').value.trim(),
+        art: document.getElementById('eForm-art').value.trim(),
+        condition: document.getElementById('eForm-condition').value,
+        description: document.getElementById('eForm-description').value.trim(),
+        category: document.getElementById('eForm-category').value,
+        avito_url: document.getElementById('eForm-avito_url').value.trim()
+    };
+    if (!data.title) { showEditStatus('Введите название', false); return; }
+    fetch('/stone/admin/api/update', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }).then(function(r) { return r.json(); }).then(function(d) {
+        if (d.success) {
+            showEditStatus('Сохранено!', true);
+            setTimeout(function(){ window.location.reload(); }, 500);
+        } else {
+            showEditStatus(d.error || 'Ошибка', false);
+        }
+    }).catch(function(){ showEditStatus('Ошибка сети', false); });
+}
+
+function showEditStatus(msg, ok) {
+    var el = document.getElementById('editFormStatus');
+    el.textContent = msg;
+    el.style.display = 'block';
+    el.style.color = ok ? '#4ade80' : '#ff6b5a';
+}
+
+{% if is_admin %}
+document.getElementById('adminBar').classList.add('show');
+{% endif %}
+
+function restoreProduct(avitoId) {
+    fetch('/admin/api/restore', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({avito_id: avitoId})
+    }).then(function(r){return r.json()}).then(function(d){
+        if(d.success){
+            var card = document.getElementById('card-'+avitoId);
+            if(card){card.style.opacity='0';card.style.transition='opacity .3s';setTimeout(function(){card.remove()},300)}
+        } else {alert(d.error)}
+    })
+}
+
+function deleteProduct(avitoId) {
+    if(!confirm('Удалить товар '+avitoId+' безвозвратно?')) return;
+    fetch('/admin/api/delete', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({avito_id: avitoId})
+    }).then(function(r){return r.json()}).then(function(d){
+        if(d.success){
+            var card = document.getElementById('card-'+avitoId);
+            if(card){card.style.opacity='0';card.style.transition='opacity .3s';setTimeout(function(){card.remove()},300)}
+        } else {alert(d.error)}
+    })
+}
+function updateDiscountTimers(){var stickers=document.querySelectorAll('.discount-sticker[data-discount-ends]');var now=Date.now();stickers.forEach(function(s){var ends=s.getAttribute('data-discount-ends');if(!ends)return;var endTime=new Date(ends+'Z').getTime();var remaining=endTime-now;var timerEl=s.querySelector('.discount-timer');if(!timerEl)return;if(remaining<=0){s.style.display='none'}else{var h=Math.floor(remaining/3600000);var m=Math.floor((remaining%3600000)/60000);timerEl.textContent=h+'ч '+(m<10?'0':'')+m+'м'}})}
+setInterval(updateDiscountTimers,30000);updateDiscountTimers();
+</script>
+
+</body>
+</html>
