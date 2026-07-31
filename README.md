@@ -3,7 +3,8 @@
   <a href="#en"><img src="https://img.shields.io/badge/EN-000000?style=flat-square&labelColor=000000&color=fd79a8"/></a>
 </p>
 
-<h3 id="ru">🇷🇺 Русский</h3>
+<details open id="ru">
+<summary><b>🇷🇺 Русский</b></summary>
 
 # TORO STORE — Stone Island Resell Platform
 
@@ -50,9 +51,10 @@ pip install -r requirements.txt
 flask run --port 5000
 ```
 
----
+</details>
 
-<h3 id="en">🇬🇧 English</h3>
+<details id="en">
+<summary><b>🇬🇧 English</b></summary>
 
 # TORO STORE — Stone Island Resell Platform
 
@@ -97,3 +99,5 @@ python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 flask run --port 5000
 ```
+
+</details>
