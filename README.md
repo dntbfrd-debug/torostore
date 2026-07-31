@@ -113,8 +113,8 @@ pip install -r requirements.txt
 BOT_TOKEN_STONE     — Telegram bot token
 DEEPSEEK_API_KEY    — DeepSeek API key
 ADMIN_PASSWORD      — Admin panel password
-SELECTEL_ACCESS_KEY — S3 access key
-SELECTEL_SECRET_KEY — S3 secret key
+S3_ACCESS_KEY       — S3 access key
+S3_SECRET_KEY       — S3 secret key
 BASE_URL            — Site base URL
 ```
 
@@ -126,13 +126,7 @@ flask run --port 5000
 
 ## Deployment
 
-Hosted on Beget.ru shared hosting with Passenger (WSGI). Files deployed to:
-
-```
-/home/s/snbld/torostore.ru/app/
-```
-
-Restart: `touch tmp/restart.txt`
+Deployed on shared hosting with Passenger (WSGI). Restart: `touch tmp/restart.txt`
 
 ## License
 
