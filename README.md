@@ -3,7 +3,7 @@
   <a href="#en"><img src="https://img.shields.io/badge/EN-000000?style=flat-square&labelColor=000000&color=fd79a8"/></a>
 </p>
 
-<details open id="ru">
+<details open name="lang" id="ru">
 <summary><b>🇷🇺 Русский</b></summary>
 
 # TORO STORE
@@ -88,7 +88,7 @@ torostore/
 
 </details>
 
-<details id="en">
+<details name="lang" id="en">
 <summary><b>🇬🇧 English</b></summary>
 
 # TORO STORE
